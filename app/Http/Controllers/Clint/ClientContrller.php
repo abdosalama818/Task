@@ -60,6 +60,14 @@ class ClientContrller extends Controller
     public function book_client_appoiment($id,Request $request)
     {
 
+        $validated = $request->validate([
+            'AppDate' => 'required|date',
+            'AppHour' => 'required|string',
+            'visit_type' => 'required|string',
+
+
+        ]);
+
             Appointment::create([
                 'AppDate'=>$request->AppDate,
                 'AppHour'=>$request->AppHour,
@@ -86,6 +94,14 @@ class ClientContrller extends Controller
             public function store_select_examination_type($id , Request $request){
 
 
+                $validated = $request->validate([
+                    'examination_type' => 'required|string',
+                    'examination_price' => 'required|numeric',
+
+
+
+                ]);
+
                 Examination_prices::create([
                     'examination_name'=>$request->examination_type,
                     'examination_price'=> $request->examination_price,
@@ -109,6 +125,8 @@ class ClientContrller extends Controller
                 foreach ( $client->Appointments as $var ){
                     $date = $var->AppDate;
                 }
+
+
 
                 Payment::create([
                     'total'=> $total,
